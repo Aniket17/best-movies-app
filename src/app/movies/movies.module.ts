@@ -4,6 +4,7 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListComponent } from './movie-list/movie-list.component';
+import { MovieService } from '../core/_services/movie.service';
 
 const routes: Routes = [
   {
@@ -26,5 +27,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [MovieCardComponent, MovieListComponent],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
+  providers: [MovieService],
 })
 export class MoviesModule {}
