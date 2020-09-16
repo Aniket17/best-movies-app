@@ -4,8 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { BrandComponent } from './brand/brand.component';
 import { BaseComponent } from './base/base.component';
+import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
 @NgModule({
-  declarations: [BaseComponent, BrandComponent],
+  declarations: [BaseComponent, BrandComponent, MobileHeaderComponent],
   imports: [CommonModule, RouterModule, MatIconModule],
   exports: [BaseComponent],
 })
