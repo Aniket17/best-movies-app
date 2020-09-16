@@ -31,6 +31,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
   pageRequest = new PageRequestModel(null);
   searchInput: FormControl = new FormControl('');
   loading: boolean = false;
+  locations = ['Delhi', 'London', 'USA', 'Australia'];
+  languages = ['English', 'Hindi', 'Marathi', 'Tamil'];
+  location;
+  language;
+  hasItems: boolean;
 
   ngOnInit(): void {
     this.subheaderService.setTitle('All Movies', 'Home');
@@ -89,10 +94,37 @@ export class MovieListComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         if (!res) {
+          this.hasItems = false;
           return;
         }
+        this.hasItems = res.totalCount > 0;
+        console.log(this.hasItems);
+
         this.moviesSubject.next(res.items);
         this.totalSubject.next(res.totalCount);
       });
+  }
+
+  //selectors
+  locationChanged(val) {
+    if (!val) {
+      return;
+    }
+    this.pageRequest.filter = { ...this.pageRequest.filter, location: val };
+    this.getMovies(this.pageRequest);
+  }
+  languageChanged(val) {
+    if (!val) {
+      return;
+    }
+    this.pageRequest.filter = { ...this.pageRequest.filter, language: val };
+    this.getMovies(this.pageRequest);
+  }
+
+  reset() {
+    this.pageRequest = new PageRequestModel(null);
+    this.location = this.language = null;
+    this.searchInput.reset();
+    this.getMovies(this.pageRequest);
   }
 }

@@ -1,30 +1,48 @@
 <div class="row col-12">
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-    <div class="col-2 pull-right">
-        <div matSort>
+    <div class="col-4"></div>
+    <div class="col-1">
+        <div matSort class="sorting">
             <span mat-sort-header="title">
                 <mat-icon>sort_by_alpha</mat-icon>
                 <mat-icon>sort</mat-icon>
             </span>
         </div>
     </div>
-    <div class="col-2">
-        <mat-form-field class="example-form-field">
-            <mat-label>Search by title</mat-label>
-            <input matInput type="text" [formControl]="searchInput">
-            <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
-                (click)="searchInput.reset()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
+    <mat-form-field class="col-2">
+        <mat-label>Location</mat-label>
+        <mat-select [(ngModel)]="location" (selectionChange)="locationChanged(location)">
+            <mat-option *ngFor="let location of locations" [value]="location">
+                {{location}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-2">
+        <mat-label>Language</mat-label>
+        <mat-select [(ngModel)]="language" (selectionChange)="languageChanged(language)">
+            <mat-option *ngFor="let language of languages" [value]="language">
+                {{language}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-2">
+        <mat-label>Search by title</mat-label>
+        <input matInput type="text" [formControl]="searchInput">
+        <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="searchInput.reset()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-icon matTooltip="Reset Filters" (click)="reset()" [color]="'warn'">close</mat-icon>
 </div>
-<div class="row col-12">
+<div class="row col-12" *ngIf="hasItems">
     <div class="col-4 margin-t-5" *ngFor="let movie of moviesSubject|async">
         <app-movie-card [movie]="movie"></app-movie-card>
     </div>
 </div>
-<div class="row col-12">
-    <mat-paginator [length]="totalSubject|async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
-    </mat-paginator>
+<div class="row col-12" *ngIf="!hasItems && !loading">
+    <p class="alert alert-info">There are no movies with selected criteria</p>
 </div>
+<mat-paginator class="row col-12" [length]="totalSubject|async" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>
