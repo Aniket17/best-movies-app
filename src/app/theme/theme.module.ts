@@ -7,12 +7,14 @@ import { BaseComponent } from './base/base.component';
 import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
+import { SubHeaderComponent } from './sub-header/sub-header.component';
 @NgModule({
   declarations: [
     BaseComponent,
     BrandComponent,
     MobileHeaderComponent,
     HeaderComponent,
+    SubHeaderComponent,
   ],
   imports: [CommonModule, RouterModule, SharedModule],
   exports: [BaseComponent],
