@@ -1,1 +1,63 @@
-<p>movie-details works!</p>
+<div class="row col-12">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+</div>
+<div class="row col-12" *ngIf="movie">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar>
+                <mat-icon>movie</mat-icon>
+            </div>
+            <mat-card-title>{{movie.title}}
+                <button mat-raised-button class="pull-right" (click)="goBack()" matTooltip="Back to List">
+                    <mat-icon>arrow_back</mat-icon>
+                    Back To List
+                </button>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <span matTooltip="Location">
+                    <mat-icon>location_on</mat-icon>
+                    {{movie.location}}
+                </span>
+                |
+                <span matTooltip="Language">
+                    <mat-icon>language</mat-icon>
+                    {{movie.language}}
+                </span>
+                <span matTooltip="IMDB Rating">
+                    <mat-icon>star</mat-icon>
+                    {{movie.imdbRating}}
+                </span>
+                <span matTooltip="{{listings[movie.listingType]?.name}}">
+                    <mat-icon>movie_filter</mat-icon>
+                    {{listings[movie.listingType]?.name}}
+                </span>
+
+
+            </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{movie.poster}}" alt="movie.title">
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-content>
+            <h3 class="card-label">Plot</h3>
+            <p class="plot">
+                {{movie.plot}}
+            </p>
+            <mat-divider [inset]="true"></mat-divider>
+            <h3 class="card-label">Photos</h3>
+            <div class="row col-12">
+                <div class="col-2 margin-5" *ngFor="let still of movie.stills">
+                    <img mat-card-image src="{{still}}" alt="{{movie.title}}">
+                </div>
+            </div>
+            <mat-divider [inset]="true"></mat-divider>
+            <h3 class="card-label">Sound Effects</h3>
+            <div class="col-12">
+                <ul>
+                    <li *ngFor="let sound of movie.soundEffects">
+                        {{sound}}
+                    </li>
+                </ul>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

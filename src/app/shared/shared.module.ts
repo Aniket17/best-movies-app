@@ -23,6 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -53,6 +54,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTooltipModule,
     MatDialogModule,
     MatBadgeModule,
+    MatDividerModule,
   ],
   exports: [
     FormsModule,
@@ -80,6 +82,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTooltipModule,
     MatDialogModule,
     MatBadgeModule,
+    MatDividerModule,
   ],
 })
 export class SharedModule {}

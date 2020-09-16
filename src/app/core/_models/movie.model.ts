@@ -4,6 +4,7 @@ import { BaseModel } from './base.model';
 export class Movie extends BaseModel {
   title: string;
   language: string;
+  location: string;
   plot: string;
   poster: string;
   soundEffects: string[];

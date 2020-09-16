@@ -6,11 +6,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieService } from '../core/_services/movie.service';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { MoviesComponent } from './movies.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MovieListComponent,
+    component: MoviesComponent,
     children: [
       {
         path: '',
@@ -30,7 +31,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MovieCardComponent, MovieListComponent, MovieDetailsComponent],
+  declarations: [
+    MovieCardComponent,
+    MovieListComponent,
+    MovieDetailsComponent,
+    MoviesComponent,
+  ],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
   providers: [MovieService],
 })
