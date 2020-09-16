@@ -3,7 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PageRequestModel } from '../../core/_models/page-request.model';
 import { MovieService } from '../../core/_services/movie.service';
-import { Movie } from '../../core';
+import { Movie, SubheaderService } from '../../core';
 
 @Component({
   selector: 'app-movie-list',
@@ -11,13 +11,17 @@ import { Movie } from '../../core';
   styleUrls: ['./movie-list.component.scss'],
 })
 export class MovieListComponent implements OnInit, OnDestroy {
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private subheaderService: SubheaderService
+  ) {}
 
   moviesSubject = new BehaviorSubject<Movie[]>([]);
   totalSubject = new BehaviorSubject<number>(0);
   destroy$ = new Subject();
 
   ngOnInit(): void {
+    this.subheaderService.setTitle('All Movies', 'Home');
     this.movieService
       .find(new PageRequestModel(null))
       .pipe(takeUntil(this.destroy$))
