@@ -1,1 +1,18 @@
-<p>movie-list works!</p>
+<div class="row bg-title">
+    <div class="col">
+        <h4 class="page-title">All Movies</h4>
+    </div>
+    <div class="col">
+        <ol class="breadcrumb">
+            <li>
+                <a>Home</a>
+            </li>
+            <li class="active">All Movies</li>
+        </ol>
+    </div>
+</div>
+<div class="row col-12">
+    <div class="col-4" *ngFor="let movie of moviesSubject|async">
+        <app-movie-card [movie]="movie"></app-movie-card>
+    </div>
+</div>

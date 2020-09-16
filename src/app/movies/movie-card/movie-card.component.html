@@ -1,17 +1,15 @@
-<mat-card>
+<mat-card *ngIf="movie">
     <mat-card-header>
         <div mat-card-avatar>
             <mat-icon>movie</mat-icon>
         </div>
-        <mat-card-title>Movie name</mat-card-title>
-        <mat-card-subtitle>Movie name</mat-card-subtitle>
+        <mat-card-title>{{movie.title}}</mat-card-title>
+        <mat-card-subtitle>{{movie.title}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image
-        src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_QL50_.jpg"
-        alt="Movie name">
+    <img mat-card-image src="{{movie.poster}}" alt="movie.title">
     <mat-card-content>
         <p>
-            Movie desc
+            {{movie.plot}}
         </p>
     </mat-card-content>
     <mat-card-actions>

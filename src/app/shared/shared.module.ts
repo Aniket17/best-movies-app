@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
     //material
     MatButtonModule,
     MatMenuModule,
@@ -56,6 +57,7 @@ import { MatBadgeModule } from '@angular/material/badge';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     //material
     MatButtonModule,
     MatMenuModule,
