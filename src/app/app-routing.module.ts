@@ -5,6 +5,10 @@ import { BaseComponent } from './theme/base/base.component';
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: '',
     component: BaseComponent,
     canActivate: [AuthGuard],
@@ -17,7 +21,6 @@ const routes: Routes = [
       { path: '', redirectTo: 'movies', pathMatch: 'full' },
     ], //lazy loaded modules
   },
-  //login and other error pages
 ];
 
 @NgModule({
