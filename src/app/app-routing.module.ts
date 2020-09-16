@@ -6,7 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: BaseComponent,
-    children: [], //lazy loaded modules
+    children: [
+      {
+        path: 'movies',
+        loadChildren: () =>
+          import('./movies/movies.module').then((m) => m.MoviesModule),
+      },
+      { path: '', redirectTo: 'movies', pathMatch: 'full' },
+    ], //lazy loaded modules
   },
   //login and other error pages
 ];
