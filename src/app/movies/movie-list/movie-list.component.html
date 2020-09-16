@@ -1,5 +1,30 @@
 <div class="row col-12">
-    <div class="col-4" *ngFor="let movie of moviesSubject|async">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <div class="col-2 pull-right">
+        <div matSort>
+            <span mat-sort-header="title">
+                <mat-icon>sort_by_alpha</mat-icon>
+                <mat-icon>sort</mat-icon>
+            </span>
+        </div>
+    </div>
+    <div class="col-2">
+        <mat-form-field class="example-form-field">
+            <mat-label>Search by title</mat-label>
+            <input matInput type="text" [formControl]="searchInput">
+            <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="searchInput.reset()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row col-12">
+    <div class="col-4 margin-t-5" *ngFor="let movie of moviesSubject|async">
         <app-movie-card [movie]="movie"></app-movie-card>
     </div>
+</div>
+<div class="row col-12">
+    <mat-paginator [length]="totalSubject|async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
 </div>

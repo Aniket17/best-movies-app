@@ -1,9 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, finalize, takeUntil, tap } from 'rxjs/operators';
 import { PageRequestModel } from '../../core/_models/page-request.model';
 import { MovieService } from '../../core/_services/movie.service';
 import { Movie, SubheaderService } from '../../core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { FormControl } from '@angular/forms';
+import { findLast } from '@angular/compiler/src/directive_resolver';
 
 @Component({
   selector: 'app-movie-list',
@@ -15,16 +19,74 @@ export class MovieListComponent implements OnInit, OnDestroy {
     private movieService: MovieService,
     private subheaderService: SubheaderService
   ) {}
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   moviesSubject = new BehaviorSubject<Movie[]>([]);
   totalSubject = new BehaviorSubject<number>(0);
   destroy$ = new Subject();
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [3, 5, 10];
+  pageRequest = new PageRequestModel(null);
+  searchInput: FormControl = new FormControl('');
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.subheaderService.setTitle('All Movies', 'Home');
+
+    //subscribe
+    this.paginator.page
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((pageEvent) => {
+          this.pageRequest.pageNumber = pageEvent.pageIndex;
+          this.pageRequest.pageSize = pageEvent.pageSize;
+          this.getMovies(this.pageRequest);
+        })
+      )
+      .subscribe();
+
+    this.sort.sortChange
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((sortEvent) => {
+          this.pageRequest.sortField = sortEvent.active;
+          this.pageRequest.sortOrder = sortEvent.direction;
+          this.pageRequest.pageNumber = 0;
+          this.getMovies(this.pageRequest);
+        })
+      )
+      .subscribe();
+
+    this.searchInput.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(150),
+        tap((val) => {
+          this.pageRequest.pageNumber = 0;
+          this.pageRequest.filter = { ...this.pageRequest.filter, search: val };
+          this.getMovies(this.pageRequest);
+        })
+      )
+      .subscribe();
+
+    this.getMovies(this.pageRequest);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  getMovies(params: PageRequestModel) {
+    this.loading = true;
     this.movieService
-      .find(new PageRequestModel(null))
-      .pipe(takeUntil(this.destroy$))
+      .find(params)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => (this.loading = false))
+      )
       .subscribe((res) => {
         if (!res) {
           return;
@@ -32,9 +94,5 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.moviesSubject.next(res.items);
         this.totalSubject.next(res.totalCount);
       });
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

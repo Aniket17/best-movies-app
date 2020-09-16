@@ -8,7 +8,7 @@ import { SubheaderService } from 'src/app/core';
   styleUrls: ['./sub-header.component.scss'],
 })
 export class SubHeaderComponent implements OnInit {
-  subscriptions: Subscription[];
+  subscriptions: Subscription[] = [];
   constructor(private subheaderService: SubheaderService) {}
   pageTitle: string;
   pageParent: string;
