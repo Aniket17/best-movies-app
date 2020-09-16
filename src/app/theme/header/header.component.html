@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <app-brand></app-brand>
+    <app-mobile-header (mobileMenuChange)="onMobileMenuChange($event)"></app-mobile-header>
+    <div class="collapse navbar-collapse" [ngClass]="{'show':expandMobileMenu}">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
