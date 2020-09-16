@@ -13,7 +13,7 @@ export class MovieService {
    *
    */
   BASE_URL = environment.apiServer;
-  MOVIES_URL = `${this.BASE_URL}/movies`;
+  MOVIES_URL = `${this.BASE_URL}/api/movies`;
   constructor(private http: HttpClient) {}
 
   find(params: PageRequestModel): Observable<PageResultsModel> {

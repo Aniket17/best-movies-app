@@ -7,6 +7,8 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieService } from '../core/_services/movie.service';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MoviesComponent } from './movies.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptService } from '../core/_services/auth-interceptor.service';
 
 const routes: Routes = [
   {
@@ -38,6 +40,14 @@ const routes: Routes = [
     MoviesComponent,
   ],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
-  providers: [MovieService],
+  providers: [
+    MovieService,
+    AuthInterceptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptService,
+      multi: true,
+    },
+  ],
 })
 export class MoviesModule {}
