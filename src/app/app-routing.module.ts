@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'movies', pathMatch: 'full' },
     ], //lazy loaded modules
   },
+  { path: '**', redirectTo: 'auth/login', pathMatch: 'full' },
 ];
 
 @NgModule({

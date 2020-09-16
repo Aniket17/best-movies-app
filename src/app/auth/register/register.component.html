@@ -1,1 +1,43 @@
-<p>register works!</p>
+<mat-card class="col-12" style="margin: auto;">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon></mat-icon>
+        </div>
+        <mat-card-title>Register</mat-card-title>
+        <mat-card-subtitle><span class="">Already have an account ?</span>&nbsp;&nbsp;
+            <a href="javascript:;" routerLink="/auth/login" class="">Sign In</a></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="login__form">
+            <div class="login__title">
+                <h3>Register</h3>
+            </div>
+            <form [formGroup]="registerForm">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Email">
+                    <mat-hint>
+                        Email is <strong>required</strong>
+                    </mat-hint>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username" placeholder="Username">
+                    <mat-hint>
+                        Username is <strong>required</strong>
+                    </mat-hint>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" placeholder="Password" type="password">
+                    <mat-hint>
+                        Password is <strong>required</strong>
+                    </mat-hint>
+                </mat-form-field>
+            </form>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button [color]="'accent'" (click)="register()" [disabled]="registerForm.invalid">Register</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,1 +1,36 @@
-<p>login works!</p>
+<mat-card class="col-12" style="margin: auto;">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon></mat-icon>
+        </div>
+        <mat-card-title>Sign In</mat-card-title>
+        <mat-card-subtitle><span class="">Don't have an account yet?</span>&nbsp;&nbsp;
+            <a href="javascript:;" routerLink="/auth/register" class="">Register</a></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="login__form">
+            <div class="login__title">
+                <h3>Sign In</h3>
+            </div>
+            <form [formGroup]="loginForm">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username" placeholder="Username">
+                    <mat-hint>
+                        Username is <strong>required</strong>
+                    </mat-hint>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" placeholder="Password" type="password">
+                    <mat-hint>
+                        Password is <strong>required</strong>
+                    </mat-hint>
+                </mat-form-field>
+            </form>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button [color]="'accent'" (click)="login()" [disabled]="loginForm.invalid">Login</button>
+    </mat-card-actions>
+</mat-card>
