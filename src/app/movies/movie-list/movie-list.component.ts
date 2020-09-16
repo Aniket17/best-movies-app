@@ -7,7 +7,7 @@ import { Movie, SubheaderService } from '../../core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
-import { findLast } from '@angular/compiler/src/directive_resolver';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -17,7 +17,9 @@ import { findLast } from '@angular/compiler/src/directive_resolver';
 export class MovieListComponent implements OnInit, OnDestroy {
   constructor(
     private movieService: MovieService,
-    private subheaderService: SubheaderService
+    private subheaderService: SubheaderService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -126,5 +128,12 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.location = this.language = null;
     this.searchInput.reset();
     this.getMovies(this.pageRequest);
+  }
+
+  //action
+  goToMovie(movie: Movie) {
+    this.router.navigate(['./details/' + movie.id], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }

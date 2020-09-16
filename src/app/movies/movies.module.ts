@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieService } from '../core/_services/movie.service';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 const routes: Routes = [
   {
@@ -20,12 +21,16 @@ const routes: Routes = [
         path: 'list',
         component: MovieListComponent,
       },
+      {
+        path: 'details/:id',
+        component: MovieDetailsComponent,
+      },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [MovieCardComponent, MovieListComponent],
+  declarations: [MovieCardComponent, MovieListComponent, MovieDetailsComponent],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
   providers: [MovieService],
 })

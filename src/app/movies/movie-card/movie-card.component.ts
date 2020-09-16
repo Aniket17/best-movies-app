@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Movie } from 'src/app/core';
 
 @Component({
@@ -9,5 +9,10 @@ import { Movie } from 'src/app/core';
 export class MovieCardComponent implements OnInit {
   constructor() {}
   @Input() movie: Movie;
+  @Output() viewClick = new EventEmitter<Movie>();
   ngOnInit(): void {}
+
+  viewMovie(movie: Movie) {
+    this.viewClick.emit(movie);
+  }
 }

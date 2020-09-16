@@ -37,7 +37,7 @@
 </div>
 <div class="row col-12" *ngIf="hasItems">
     <div class="col-4 margin-t-5" *ngFor="let movie of moviesSubject|async">
-        <app-movie-card [movie]="movie"></app-movie-card>
+        <app-movie-card [movie]="movie" (viewClick)="goToMovie($event)"></app-movie-card>
     </div>
 </div>
 <div class="row col-12" *ngIf="!hasItems && !loading">
